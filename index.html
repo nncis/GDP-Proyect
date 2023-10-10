@@ -10,6 +10,10 @@
         .bar:hover {
             fill: #004c6d;
         }
+
+        .bar {
+            
+        }
     </style>
 </head>
 
@@ -46,13 +50,16 @@
                     .domain([0, d3.max(dataSet, (d) => d[1])])
                     .range([h - paddingBottom, paddingBottom]);
 
-                const xScaleAxis = d3.scaleLinear()
-                    .domain([0, d3.max(dataSet, d => d[0])]) 
+                let datesArray = dataSet.map(x => new Date(x[0]))
+                console.log(datesArray);    
+
+                const xScaleAxis = d3.scaleTime()
+                    .domain([d3.min(datesArray), d3.max(datesArray)]) 
                     .range([padding, w - padding]);    
 
                 
               
-                const xAxis = d3.axisBottom(xScale);
+                const xAxis = d3.axisBottom(xScaleAxis);
 
                 const yAxis = d3.axisLeft(yScale);
 
